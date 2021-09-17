@@ -1,0 +1,20 @@
+apiVersion: v1
+entries:
+  scilla-operator:
+  - apiVersion: v1
+    appVersion: 0.0.0
+    created: "2021-09-17T19:42:49.402824911+03:00"
+    description: scilladb
+    digest: 9ef4235a2416f30aea86c45239e20fbe732214354a054b7930f6f55ad590b6e9
+    home: https://github.com/scylladb/scylla-operator
+    icon: https://raw.githubusercontent.com/kedacore/keda/master/images/keda-logo-500x500-white.png
+    maintainers:
+    - email: vasya@pipkin.com,
+      name: Vasya Pupkin
+    name: scilla-operator
+    sources:
+    - https://github.com/scylladb/scylla-operator
+    urls:
+    - https://github.com/sh-serenity/scilla-operator/scilla-operator-0.0.0.tgz
+    version: 0.0.0
+generated: "2021-09-17T19:42:48.497131913+03:00"
