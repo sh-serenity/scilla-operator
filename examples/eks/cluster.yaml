@@ -1,0 +1,73 @@
+# Namespace where the Scylla Cluster will be created
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: scylla
+
+---
+
+# ServiceAccount for scylla members.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: scylla-cluster-member
+  namespace: scylla
+
+---
+
+# RoleBinding for scylla members.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: scylla-cluster-member
+  namespace: scylla
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: scyllacluster-member
+subjects:
+  - kind: ServiceAccount
+    name: scylla-cluster-member
+    namespace: scylla
+
+---
+
+# Scylla Cluster
+apiVersion: scylla.scylladb.com/v1
+kind: ScyllaCluster
+metadata:
+  name: scylla-cluster
+  namespace: scylla
+spec:
+  version: 4.4.2
+  agentVersion: 2.3.0
+  cpuset: true
+  network:
+    hostNetworking: true
+  sysctls:
+  - "fs.aio-max-nr=2097152"
+  datacenter:
+    name: us-central1-c
+    racks:
+    - name: a
+      members: 1
+      storage:
+        capacity: 10G
+      resources:
+        limits:
+          cpu: 7
+          memory: 16G
+      placement:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - us-central1-c
+        tolerations:
+          - key: role
+            operator: Equal
+            value: scylla-clusters
+            effect: NoSchedule

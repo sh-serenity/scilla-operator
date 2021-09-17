@@ -1,0 +1,7 @@
+domain: scylla.scylladb.com
+repo: github.com/scylladb/scylla-operator
+resources:
+- group: scylla
+  kind: ScyllaCluster
+  version: v1
+version: "2"

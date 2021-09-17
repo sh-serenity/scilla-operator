@@ -1,0 +1,21 @@
+/scylla-operator
+/scylla-operator-tests
+/gen-release-notes
+
+# Test binary, build with `go test -c`
+*.test
+# Output of the go coverage tool
+*.out
+
+# editor and IDE paraphernalia
+.idea
+*.swp
+*.swo
+*~
+
+examples/common/grafana/values.yaml
+
+# additions for docs
+docs/_build
+docs/poetry.lock
+source/.doctrees
